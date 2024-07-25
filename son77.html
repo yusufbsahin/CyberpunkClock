@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon(1).ico">
+    <title>Live Clock - Cyberpunk 2077 Style</title>
+    <style>
+        @font-face {
+            font-family: 'Cyberpunk';
+            src: url('cyberpunk.ttf') format('truetype');
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                opacity: 0.6;
+            }
+            22%, 26%, 53% {
+                opacity: 0.8;
+            }
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #FCEE09;
+            color: #FF003C;
+            font-family: 'Cyberpunk', sans-serif;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #050A0E;
+          <!--  border-radius: 10px; -->
+            box-shadow: 0 0 30px #FF003C, 0 0 50px #FF003C, 0 0 70px #FF003C;
+            animation: flicker 3s infinite alternate;
+        }
+
+        .date, .clock {
+            margin: 0;
+            padding: 0;
+        }
+
+        .date {
+            font-size: 30px; /* Font size increased */
+            margin-bottom: 10px;
+            color: #00F0FF;
+            text-shadow: 0 0 10px #00F0FF, 0 0 20px #00F0FF, 0 0 30px #00F0FF;
+            animation: flicker 2s infinite alternate;
+            letter-spacing: 25px;
+        }
+
+        .clock {
+            font-size: 60px; /* Font size increased */
+            color: #FAFAFA;
+            text-shadow: 0 0 10px #FAFAFA, 0 0 20px #FAFAFA, 0 0 30px #FAFAFA;
+            letter-spacing: 30px; /* Added space between numbers */
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        .container {
+            width: 600px; /* Width adjusted for rectangular shape */
+            height: 150px; /* Height adjusted for rectangular shape */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #050A0E;
+            border: 1px solid #FF003C;
+            filter: drop-shadow(0 0 5px #FF003C) 
+                    drop-shadow(0 0 10px #FF003C) 
+                    drop-shadow(0 0 15px #FF003C); /* Rectangular shadow effect */
+            <!-- box-shadow: 0 0 20px #FF003C, 0 0 30px #FF003C, 0 0 40px #FF003C; /* Neon red glow */ -->
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="date" id="date"></div>
+        <div class="clock" id="clock"></div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const clockElement = document.getElementById('clock');
+            const dateElement = document.getElementById('date');
+            const now = new Date();
+
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            const dateString = `${day}.${month}.${year}`;
+
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+
+            dateElement.textContent = dateString;
+            clockElement.textContent = timeString;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call to display clock immediately
+    </script>
+</body>
+</html>
